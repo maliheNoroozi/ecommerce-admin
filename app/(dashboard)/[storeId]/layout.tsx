@@ -1,6 +1,7 @@
-import db from "@/lib/db";
 import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
+import db from "@/lib/db";
+import { Header } from "@/components/header";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -16,15 +17,17 @@ export default async function Layout({ children, params }: LayoutProps) {
   }
 
   const store = await db.store.findFirst({
-    where: {
-      id: params.storeId,
-      userId,
-    },
+    where: { id: params.storeId, userId },
   });
 
   if (!store) {
     redirect("/");
   }
 
-  return <div>{children}</div>;
+  return (
+    <div>
+      <Header />
+      {children}
+    </div>
+  );
 }
