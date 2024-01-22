@@ -1,16 +1,15 @@
-import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
+import { auth } from "@clerk/nextjs";
 import db from "@/lib/db";
-import { Header } from "@/components/header";
+import { StoreSettings } from "@/components/store-settings";
 
-interface LayoutProps {
-  children: React.ReactNode;
+interface PageProps {
   params: {
     storeId: string;
   };
 }
 
-export default async function Layout({ children, params }: LayoutProps) {
+export default async function Page({ params }: PageProps) {
   const { userId } = auth();
   if (!userId) {
     redirect("/sign-in");
@@ -19,15 +18,15 @@ export default async function Layout({ children, params }: LayoutProps) {
   const store = await db.store.findFirst({
     where: { id: params.storeId, userId },
   });
-
   if (!store) {
     redirect("/");
   }
 
   return (
-    <>
-      <Header />
-      {children}
-    </>
+    <div className="flex-col">
+      <div className="flex-1 space-y-4 p-8 pt-6">
+        <StoreSettings store={store} />
+      </div>
+    </div>
   );
 }

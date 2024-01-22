@@ -3,7 +3,7 @@
 import { useStoreModal } from "@/hooks/use-store-modal";
 import { useEffect } from "react";
 
-export default function Home() {
+export default function Page() {
   const isOpen = useStoreModal((state) => state.isOpen);
   const onOpen = useStoreModal((state) => state.onOpen);
 
