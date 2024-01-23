@@ -37,9 +37,10 @@ type FormProps = z.infer<typeof FormScheme>;
 
 export const StoreSettings: FC<StoreSettingsProps> = ({ store }) => {
   const router = useRouter();
+  const origin = useOrigin();
+
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
-  const origin = useOrigin();
 
   const form = useForm<FormProps>({
     resolver: zodResolver(FormScheme),
