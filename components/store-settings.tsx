@@ -22,6 +22,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { useRouter } from "next/navigation";
 import { AlertModal } from "@/components/modals/alert-modal";
+import { ApiAlert } from "@/components/ui/api-alert";
+import { useOrigin } from "@/hooks/use-origin";
 
 interface StoreSettingsProps {
   store: Store;
@@ -37,6 +39,7 @@ export const StoreSettings: FC<StoreSettingsProps> = ({ store }) => {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
+  const origin = useOrigin();
 
   const form = useForm<FormProps>({
     resolver: zodResolver(FormScheme),
@@ -118,6 +121,12 @@ export const StoreSettings: FC<StoreSettingsProps> = ({ store }) => {
           </Button>
         </form>
       </Form>
+      <Separator />
+      <ApiAlert
+        title="NEXT_PUBLIC_API_URL"
+        description={`${origin}/api/${store.id}`}
+        variant="admin"
+      />
     </>
   );
 };
