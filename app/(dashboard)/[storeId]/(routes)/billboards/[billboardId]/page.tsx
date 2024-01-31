@@ -1,5 +1,5 @@
 import db from "@/lib/db";
-import { BillboardForm } from "@/components/billboard-form";
+import { BillboardForm } from "@/components/billboards/billboard-form";
 
 interface PageProps {
   params: {

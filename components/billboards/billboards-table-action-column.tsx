@@ -20,7 +20,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { AlertModal } from "@/components/modals/alert-modal";
-import { BillboardColumn } from "@/components/billboards-table-columns";
+import { BillboardColumn } from "@/components/billboards/billboards-table-columns";
 
 interface ActionColumnProps {
   billboard: BillboardColumn;

@@ -1,7 +1,7 @@
 import db from "@/lib/db";
 import { format } from "date-fns";
-import { Billboards } from "@/components/billboards";
-import { BillboardColumn } from "@/components/billboards-table-columns";
+import { Billboards } from "@/components/billboards/billboards";
+import { BillboardColumn } from "@/components/billboards/billboards-table-columns";
 
 interface PageProps {
   params: {

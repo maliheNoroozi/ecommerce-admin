@@ -10,7 +10,7 @@ import { DataTable } from "@/components/ui/data-table";
 import {
   columns,
   BillboardColumn,
-} from "@/components/billboards-table-columns";
+} from "@/components/billboards/billboards-table-columns";
 import { ApiList } from "@/components/ui/api-list";
 
 interface BillboardsProps {

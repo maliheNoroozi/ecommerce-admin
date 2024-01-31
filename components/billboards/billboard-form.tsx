@@ -64,7 +64,7 @@ export const BillboardForm: FC<BillboardFormProps> = ({ billboard }) => {
       );
       router.refresh(); // TODO
       router.push(`/${params.storeId}/billboards`);
-      toast.success("Store deleted successfully.");
+      toast.success("Billboard deleted successfully.");
     } catch (error) {
       toast.error(
         "Make sure you removed all categories using the billboard first."

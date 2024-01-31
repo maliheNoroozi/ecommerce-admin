@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import { auth } from "@clerk/nextjs";
 import db from "@/lib/db";
-import { SettingsForm } from "@/components/settings-form";
+import { SettingsForm } from "@/components/settings/settings-form";
 
 interface PageProps {
   params: {

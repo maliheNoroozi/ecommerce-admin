@@ -1,7 +1,7 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
-import { BillboardActionColumn } from "./billboards-table-action-column";
+import { BillboardActionColumn } from "@/components/billboards/billboards-table-action-column";
 
 export type BillboardColumn = {
   id: string;
