@@ -25,7 +25,7 @@ import { AlertModal } from "@/components/modals/alert-modal";
 import { ApiAlert } from "@/components/ui/api-alert";
 import { useOrigin } from "@/hooks/use-origin";
 
-interface StoreSettingsProps {
+interface SettingsFormProps {
   store: Store;
 }
 
@@ -35,7 +35,7 @@ const FormScheme = z.object({
 
 type FormProps = z.infer<typeof FormScheme>;
 
-export const StoreSettings: FC<StoreSettingsProps> = ({ store }) => {
+export const SettingsForm: FC<SettingsFormProps> = ({ store }) => {
   const router = useRouter();
   const origin = useOrigin();
 
@@ -53,7 +53,7 @@ export const StoreSettings: FC<StoreSettingsProps> = ({ store }) => {
     try {
       setLoading(true);
       await axios.delete(`/api/stores/${store.id}`);
-      router.refresh();
+      router.refresh(); // TODO, question
       toast.success("Store deleted successfully.");
     } catch (error) {
       toast.error("Make sure you removed products and categories first.");
@@ -67,7 +67,7 @@ export const StoreSettings: FC<StoreSettingsProps> = ({ store }) => {
     try {
       setLoading(true);
       await axios.patch(`/api/stores/${store.id}`, data);
-      router.refresh();
+      router.refresh(); // TODO, question
       toast.success("Store updated successfully.");
     } catch (error) {
       toast.error("Something went wrong");
