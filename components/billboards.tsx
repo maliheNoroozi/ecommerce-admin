@@ -11,6 +11,7 @@ import {
   columns,
   BillboardColumn,
 } from "@/components/billboards-table-columns";
+import { ApiList } from "@/components/ui/api-list";
 
 interface BillboardsProps {
   billboards: BillboardColumn[];
@@ -36,6 +37,9 @@ export const Billboards: FC<BillboardsProps> = ({ billboards }) => {
       </div>
       <Separator />
       <DataTable columns={columns} data={billboards} searchKey="label" />
+      <Heading title="API" description="API calls for billboard" />
+      <Separator />
+      <ApiList entityName="billboards" entityIdName="billboardId" />
     </>
   );
 };
