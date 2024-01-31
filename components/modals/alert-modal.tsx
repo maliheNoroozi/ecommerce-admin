@@ -9,14 +9,14 @@ interface AlertModalProps {
   isOpen: boolean;
   onConfirm: () => void;
   onClose: () => void;
-  loading: boolean;
+  isLoading: boolean;
 }
 
 export const AlertModal: FC<AlertModalProps> = ({
   isOpen,
   onConfirm,
   onClose,
-  loading,
+  isLoading,
 }) => {
   const [isMounted, setIsMounted] = useState<boolean>(false);
 
@@ -36,10 +36,10 @@ export const AlertModal: FC<AlertModalProps> = ({
       onClose={onClose}
     >
       <div className="pt-6 space-x-2 flex items-center justify-end">
-        <Button variant="outline" disabled={loading} onClick={onClose}>
+        <Button variant="outline" disabled={isLoading} onClick={onClose}>
           Cancel
         </Button>
-        <Button variant="destructive" disabled={loading} onClick={onConfirm}>
+        <Button variant="destructive" disabled={isLoading} onClick={onConfirm}>
           Continue
         </Button>
       </div>

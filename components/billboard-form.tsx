@@ -39,7 +39,7 @@ export const BillboardForm: FC<BillboardFormProps> = ({ billboard }) => {
   const params = useParams();
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [loading, setLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const form = useForm<FormProps>({
     resolver: zodResolver(FormScheme),
@@ -58,25 +58,26 @@ export const BillboardForm: FC<BillboardFormProps> = ({ billboard }) => {
 
   const onDelete = async () => {
     try {
-      setLoading(true);
+      setIsLoading(true);
       await axios.delete(
-        `/api/stores/${params.storeId}/billboards/${params.billboardId}`
+        `/api/${params.storeId}/billboards/${params.billboardId}`
       );
-      router.refresh(); // TODO, question
+      router.refresh(); // TODO
+      router.push(`/${params.storeId}/billboards`);
       toast.success("Store deleted successfully.");
     } catch (error) {
       toast.error(
         "Make sure you removed all categories using the billboard first."
       );
     } finally {
-      setLoading(false);
+      setIsLoading(false);
       setIsOpen(false);
     }
   };
 
   const onSubmit = async (data: FormProps) => {
     try {
-      setLoading(true);
+      setIsLoading(true);
       if (billboard) {
         await axios.patch(
           `/api/${params.storeId}/billboards/${params.billboardId}`,
@@ -86,12 +87,12 @@ export const BillboardForm: FC<BillboardFormProps> = ({ billboard }) => {
         await axios.post(`/api/${params.storeId}/billboards`, data);
       }
       router.refresh(); //TODO
-      router.push(`/${params.storeId}/billboards`); // TODO, question
+      router.push(`/${params.storeId}/billboards`);
       toast.success(toastMessage);
     } catch (error) {
       toast.error("Something went wrong");
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
   };
 
@@ -101,7 +102,7 @@ export const BillboardForm: FC<BillboardFormProps> = ({ billboard }) => {
         isOpen={isOpen}
         onConfirm={onDelete}
         onClose={() => setIsOpen(false)}
-        loading={loading}
+        isLoading={isLoading}
       />
       <div className="flex items-center justify-between">
         <Heading title={title} description={description} />
@@ -109,7 +110,7 @@ export const BillboardForm: FC<BillboardFormProps> = ({ billboard }) => {
           <Button
             size="icon"
             variant="destructive"
-            disabled={loading}
+            disabled={isLoading}
             onClick={() => setIsOpen(true)}
           >
             <TrashIcon size={20} />
@@ -127,7 +128,7 @@ export const BillboardForm: FC<BillboardFormProps> = ({ billboard }) => {
                 <FormControl>
                   <ImageUpload
                     imageUrls={field.value ? [field.value] : []}
-                    disabled={loading}
+                    disabled={isLoading}
                     onChange={(url) => field.onChange(url)}
                     onDelete={() => field.onChange("")}
                   />
@@ -147,7 +148,7 @@ export const BillboardForm: FC<BillboardFormProps> = ({ billboard }) => {
                     <Input
                       {...field}
                       placeholder="Billboard label"
-                      disabled={loading}
+                      disabled={isLoading}
                     />
                   </FormControl>
                   <FormMessage />
@@ -155,7 +156,7 @@ export const BillboardForm: FC<BillboardFormProps> = ({ billboard }) => {
               )}
             />
           </div>
-          <Button type="submit" disabled={loading} className="ml-auto">
+          <Button type="submit" disabled={isLoading} className="ml-auto">
             {action}
           </Button>
         </form>

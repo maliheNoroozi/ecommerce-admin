@@ -40,7 +40,7 @@ export const SettingsForm: FC<SettingsFormProps> = ({ store }) => {
   const origin = useOrigin();
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [loading, setLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const form = useForm<FormProps>({
     resolver: zodResolver(FormScheme),
@@ -51,28 +51,28 @@ export const SettingsForm: FC<SettingsFormProps> = ({ store }) => {
 
   const onDelete = async () => {
     try {
-      setLoading(true);
+      setIsLoading(true);
       await axios.delete(`/api/stores/${store.id}`);
       router.refresh(); // TODO, question
       toast.success("Store deleted successfully.");
     } catch (error) {
       toast.error("Make sure you removed products and categories first.");
     } finally {
-      setLoading(false);
+      setIsLoading(false);
       setIsOpen(false);
     }
   };
 
   const onSubmit = async (data: FormProps) => {
     try {
-      setLoading(true);
+      setIsLoading(true);
       await axios.patch(`/api/stores/${store.id}`, data);
       router.refresh(); // TODO, question
       toast.success("Store updated successfully.");
     } catch (error) {
       toast.error("Something went wrong");
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
   };
 
@@ -82,14 +82,14 @@ export const SettingsForm: FC<SettingsFormProps> = ({ store }) => {
         isOpen={isOpen}
         onConfirm={onDelete}
         onClose={() => setIsOpen(false)}
-        loading={loading}
+        isLoading={isLoading}
       />
       <div className="flex items-center justify-between">
         <Heading title="Settings" description="Manage store preferences" />
         <Button
           size="icon"
           variant="destructive"
-          disabled={loading}
+          disabled={isLoading}
           onClick={() => setIsOpen(true)}
         >
           <TrashIcon size={20} />
@@ -109,7 +109,7 @@ export const SettingsForm: FC<SettingsFormProps> = ({ store }) => {
                     <Input
                       {...field}
                       placeholder="E-Commerce"
-                      disabled={loading}
+                      disabled={isLoading}
                     />
                   </FormControl>
                   <FormMessage />
@@ -117,7 +117,7 @@ export const SettingsForm: FC<SettingsFormProps> = ({ store }) => {
               )}
             />
           </div>
-          <Button type="submit" disabled={loading} className="ml-auto">
+          <Button type="submit" disabled={isLoading} className="ml-auto">
             Save changes
           </Button>
         </form>

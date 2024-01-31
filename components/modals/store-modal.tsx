@@ -27,7 +27,7 @@ const FormScheme = z.object({
 type FormProps = z.infer<typeof FormScheme>;
 
 export const StoreModal = () => {
-  const [loading, setLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const isOpen = useStoreModal((state) => state.isOpen);
   const onClose = useStoreModal((state) => state.onClose);
@@ -41,7 +41,7 @@ export const StoreModal = () => {
 
   const onSubmit = async (data: FormProps) => {
     try {
-      setLoading(true);
+      setIsLoading(true);
       const response = await axios.post("/api/stores", data);
       const store: Store = response.data;
       window.location.assign(`/${store.id}`); // TODO, question
@@ -49,7 +49,7 @@ export const StoreModal = () => {
       toast.error("Something went wrong");
     } finally {
       onClose();
-      setLoading(false);
+      setIsLoading(false);
     }
   };
 
@@ -73,7 +73,7 @@ export const StoreModal = () => {
                     <Input
                       {...field}
                       placeholder="E-Commerce"
-                      disabled={loading}
+                      disabled={isLoading}
                     />
                   </FormControl>
                   <FormMessage />
@@ -81,10 +81,10 @@ export const StoreModal = () => {
               )}
             />
             <div className="flex justify-end items-center gap-2">
-              <Button variant="outline" disabled={loading} onClick={onClose}>
+              <Button variant="outline" disabled={isLoading} onClick={onClose}>
                 Cancel
               </Button>
-              <Button type="submit" disabled={loading}>
+              <Button type="submit" disabled={isLoading}>
                 Continue
               </Button>
             </div>
