@@ -1,5 +1,5 @@
 import db from "@/lib/db";
-import { CategoryForm } from "@/components/categories/categories-form";
+import { CategoryForm } from "@/components/categories/category-form";
 import { Category } from "@prisma/client";
 
 interface PageProps {
