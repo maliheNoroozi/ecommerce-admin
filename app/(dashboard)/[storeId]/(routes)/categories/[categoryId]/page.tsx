@@ -1,5 +1,6 @@
 import db from "@/lib/db";
 import { CategoryForm } from "@/components/categories/categories-form";
+import { Category } from "@prisma/client";
 
 interface PageProps {
   params: {
@@ -9,7 +10,7 @@ interface PageProps {
 }
 
 export default async function Page({ params }: PageProps) {
-  const category = await db.category.findUnique({
+  const category: Category = await db.category.findUnique({
     where: {
       id: params.categoryId,
     },

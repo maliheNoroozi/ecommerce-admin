@@ -20,37 +20,35 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { AlertModal } from "@/components/modals/alert-modal";
-import { CategoryColumn } from "@/components/categories/categories-table-columns";
+import { SizeColumn } from "@/components/sizes/sizes-table-columns";
 
 interface ActionColumnProps {
-  category: CategoryColumn;
+  size: SizeColumn;
 }
 
-export const CategoryActionColumn: FC<ActionColumnProps> = ({ category }) => {
+export const SizeActionColumn: FC<ActionColumnProps> = ({ size }) => {
   const router = useRouter();
   const params = useParams();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const onCopy = () => {
-    window.navigator.clipboard.writeText(category.id);
-    toast.success("Category id copied to clipboard.");
+    window.navigator.clipboard.writeText(size.id);
+    toast.success("Size id copied to clipboard.");
   };
 
   const onUpdate = () => {
-    router.push(`/${params.storeId}/categories/${category.id}`);
+    router.push(`/${params.storeId}/sizes/${size.id}`);
   };
 
   const onDelete = async () => {
     try {
       setIsLoading(true);
-      await axios.delete(`/api/${params.storeId}/categories/${category.id}`);
+      await axios.delete(`/api/${params.storeId}/sizes/${size.id}`);
       router.refresh();
-      toast.success("Category deleted successfully.");
+      toast.success("Size deleted successfully.");
     } catch (error) {
-      toast.error(
-        "Make sure you removed all products using this category first."
-      );
+      toast.error("Make sure you removed all products using this size first.");
     } finally {
       setIsLoading(false);
       setIsOpen(false);

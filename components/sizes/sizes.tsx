@@ -7,17 +7,14 @@ import { Heading } from "@/components/ui/heading";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { DataTable } from "@/components/ui/data-table";
-import {
-  columns,
-  BillboardColumn,
-} from "@/components/billboards/billboards-table-columns";
+import { columns, SizeColumn } from "@/components/sizes/sizes-table-columns";
 import { ApiList } from "@/components/ui/api-list";
 
-interface BillboardsProps {
-  billboards: BillboardColumn[];
+interface SizesProps {
+  sizes: SizeColumn[];
 }
 
-export const Billboards: FC<BillboardsProps> = ({ billboards }) => {
+export const Sizes: FC<SizesProps> = ({ sizes }) => {
   const router = useRouter();
   const params = useParams();
 
@@ -25,21 +22,19 @@ export const Billboards: FC<BillboardsProps> = ({ billboards }) => {
     <>
       <div className="flex items-center justify-between">
         <Heading
-          title={`Billboards(${billboards.length})`}
-          description="Manage billboards for your store"
+          title={`Sizes(${sizes.length})`}
+          description="Manage sizes for your store"
         />
-        <Button
-          onClick={() => router.push(`/${params.storeId}/billboards/new`)}
-        >
+        <Button onClick={() => router.push(`/${params.storeId}/sizes/new`)}>
           <PlusIcon size={20} className="mr-2" />
-          New Billboard
+          New Size
         </Button>
       </div>
       <Separator />
-      <DataTable columns={columns} data={billboards} searchKey="label" />
-      <Heading title="API" description="API calls for billboards" />
+      <DataTable columns={columns} data={sizes} searchKey="name" />
+      <Heading title="API" description="API calls for sizes" />
       <Separator />
-      <ApiList entityName="billboards" entityIdName="billboardId" />
+      <ApiList entityName="sizes" entityIdName="sizeId" />
     </>
   );
 };

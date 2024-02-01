@@ -34,7 +34,7 @@ export const BillboardActionColumn: FC<ActionColumnProps> = ({ billboard }) => {
 
   const onCopy = () => {
     window.navigator.clipboard.writeText(billboard.id);
-    toast.success("Billboard ID copied to clipboard.");
+    toast.success("Billboard id copied to clipboard.");
   };
 
   const onUpdate = () => {
@@ -46,7 +46,7 @@ export const BillboardActionColumn: FC<ActionColumnProps> = ({ billboard }) => {
       setIsLoading(true);
       await axios.delete(`/api/${params.storeId}/billboards/${billboard.id}`);
       router.refresh(); // TODO, question
-      toast.success("Store deleted successfully.");
+      toast.success("Billboard deleted successfully.");
     } catch (error) {
       toast.error(
         "Make sure you removed all categories using the billboard first."

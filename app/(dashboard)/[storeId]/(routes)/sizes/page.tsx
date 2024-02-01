@@ -1,8 +1,8 @@
 import db from "@/lib/db";
 import { format } from "date-fns";
-import { Billboards } from "@/components/billboards/billboards";
-import { BillboardColumn } from "@/components/billboards/billboards-table-columns";
-import { Billboard } from "@prisma/client";
+import { Sizes } from "@/components/sizes/sizes";
+import { SizeColumn } from "@/components/sizes/sizes-table-columns";
+import { Size } from "@prisma/client";
 
 interface PageProps {
   params: {
@@ -11,7 +11,7 @@ interface PageProps {
 }
 
 export default async function Page({ params }: PageProps) {
-  const billboards: Billboard[] = await db.billboard.findMany({
+  const sizes: Size[] = await db.size.findMany({
     where: {
       storeId: params.storeId,
     },
@@ -20,16 +20,17 @@ export default async function Page({ params }: PageProps) {
     },
   });
 
-  const formattedBillboards: BillboardColumn[] = billboards.map((item) => ({
+  const formattedSizes: SizeColumn[] = sizes.map((item) => ({
     id: item.id,
-    label: item.label,
+    name: item.name,
+    value: item.value,
     createdAt: format(item.createdAt, "MMMM do, yyyy"),
   }));
 
   return (
     <div className="flex-col gap-6">
       <div className="flex-1 space-y-4 p-8">
-        <Billboards billboards={formattedBillboards} />
+        <Sizes sizes={formattedSizes} />
       </div>
     </div>
   );
