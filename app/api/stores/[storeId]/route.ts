@@ -1,7 +1,6 @@
 import { auth } from "@clerk/nextjs";
 import { NextRequest, NextResponse } from "next/server";
 import db from "@/lib/db";
-import { revalidatePath } from "next/cache";
 
 interface RequestProps {
   params: {
@@ -31,8 +30,6 @@ export const PATCH = async (req: NextRequest, { params }: RequestProps) => {
       data: { name },
     });
 
-    // TODO, question? because it is dynamic, second parameter can not ba layout, because of that I can not revalidate layout, right?
-    // revalidatePath(`/${store.id}`, "layout"); wrong
     return NextResponse.json(store);
   } catch (error) {
     console.log("[STORE-PATCH]", error);
