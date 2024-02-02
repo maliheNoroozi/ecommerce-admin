@@ -62,8 +62,8 @@ export const BillboardForm: FC<BillboardFormProps> = ({ billboard }) => {
       await axios.delete(
         `/api/${params.storeId}/billboards/${params.billboardId}`
       );
-      router.refresh(); // TODO
       router.push(`/${params.storeId}/billboards`);
+      router.refresh();
       toast.success("Billboard deleted successfully.");
     } catch (error) {
       toast.error(
@@ -86,8 +86,8 @@ export const BillboardForm: FC<BillboardFormProps> = ({ billboard }) => {
       } else {
         await axios.post(`/api/${params.storeId}/billboards`, data);
       }
-      router.refresh(); //TODO
       router.push(`/${params.storeId}/billboards`);
+      router.refresh();
       toast.success(toastMessage);
     } catch (error) {
       toast.error("Something went wrong");

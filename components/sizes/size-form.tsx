@@ -59,8 +59,8 @@ export const SizeForm: FC<SizeFormProps> = ({ size }) => {
     try {
       setIsLoading(true);
       await axios.delete(`/api/${params.storeId}/sizes/${params.sizeId}`);
-      router.refresh(); // TODO
       router.push(`/${params.storeId}/sizes`);
+      router.refresh();
       toast.success("Size deleted successfully.");
     } catch (error) {
       toast.error("Make sure you removed all products using this size first.");
@@ -81,8 +81,8 @@ export const SizeForm: FC<SizeFormProps> = ({ size }) => {
       } else {
         await axios.post(`/api/${params.storeId}/sizes`, data);
       }
-      router.refresh(); //TODO
       router.push(`/${params.storeId}/sizes`);
+      router.refresh();
       toast.success(toastMessage);
     } catch (error) {
       toast.error("Something went wrong");

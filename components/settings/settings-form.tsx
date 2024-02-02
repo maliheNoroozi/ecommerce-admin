@@ -53,7 +53,7 @@ export const SettingsForm: FC<SettingsFormProps> = ({ store }) => {
     try {
       setIsLoading(true);
       await axios.delete(`/api/stores/${store.id}`);
-      router.refresh(); // TODO, question
+      router.refresh();
       toast.success("Store deleted successfully.");
     } catch (error) {
       toast.error("Make sure you removed products and categories first.");
@@ -67,7 +67,7 @@ export const SettingsForm: FC<SettingsFormProps> = ({ store }) => {
     try {
       setIsLoading(true);
       await axios.patch(`/api/stores/${store.id}`, data);
-      router.refresh(); // TODO, question
+      router.refresh();
       toast.success("Store updated successfully.");
     } catch (error) {
       toast.error("Something went wrong");

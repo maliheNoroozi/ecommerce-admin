@@ -20,37 +20,35 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { AlertModal } from "@/components/modals/alert-modal";
-import { BillboardColumn } from "@/components/billboards/billboards-table-columns";
+import { ProductColumn } from "@/components/products/products-table-columns";
 
 interface ActionColumnProps {
-  billboard: BillboardColumn;
+  product: ProductColumn;
 }
 
-export const BillboardActionColumn: FC<ActionColumnProps> = ({ billboard }) => {
+export const ProductActionColumn: FC<ActionColumnProps> = ({ product }) => {
   const router = useRouter();
   const params = useParams();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const onCopy = () => {
-    window.navigator.clipboard.writeText(billboard.id);
-    toast.success("Billboard id copied to clipboard.");
+    window.navigator.clipboard.writeText(product.id);
+    toast.success("Product id copied to clipboard.");
   };
 
   const onUpdate = () => {
-    router.push(`/${params.storeId}/billboards/${billboard.id}`);
+    router.push(`/${params.storeId}/products/${product.id}`);
   };
 
   const onDelete = async () => {
     try {
       setIsLoading(true);
-      await axios.delete(`/api/${params.storeId}/billboards/${billboard.id}`);
+      await axios.delete(`/api/${params.storeId}/products/${product.id}`);
       router.refresh();
-      toast.success("Billboard deleted successfully.");
+      toast.success("Product deleted successfully.");
     } catch (error) {
-      toast.error(
-        "Make sure you removed all categories using the billboard first."
-      );
+      toast.error("Something went wrong");
     } finally {
       setIsLoading(false);
       setIsOpen(false);
