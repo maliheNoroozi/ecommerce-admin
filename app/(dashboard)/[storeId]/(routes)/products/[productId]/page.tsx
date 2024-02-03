@@ -47,7 +47,11 @@ export default async function Page({ params }: PageProps) {
     <div className="flex-col gap-6">
       <div className="flex-1 space-y-4 p-8">
         <ProductForm
-          product={product}
+          product={
+            product
+              ? { ...product, price: parseFloat(String(product.price)) }
+              : null
+          }
           categories={categories}
           sizes={sizes}
           colors={colors}

@@ -1,6 +1,6 @@
 "use client";
 
-import { string, z } from "zod";
+import { z } from "zod";
 import axios from "axios";
 import { FC, useState } from "react";
 import toast from "react-hot-toast";
@@ -51,8 +51,9 @@ type FormProps = z.infer<typeof FormScheme>;
 
 interface ProductFormProps {
   product:
-    | (Product & {
+    | (Omit<Product, "price"> & {
         images: Image[];
+        price: number;
       })
     | null;
   categories: Category[];
@@ -74,18 +75,16 @@ export const ProductForm: FC<ProductFormProps> = ({
 
   const form = useForm<FormProps>({
     resolver: zodResolver(FormScheme),
-    defaultValues: product
-      ? { ...product, price: parseFloat(String(product.price)) }
-      : {
-          name: "",
-          images: [],
-          price: 0,
-          categoryId: "",
-          sizeId: "",
-          colorId: "",
-          isArchived: false,
-          isFeatured: false,
-        },
+    defaultValues: product || {
+      name: "",
+      images: [],
+      price: 0,
+      categoryId: "",
+      sizeId: "",
+      colorId: "",
+      isArchived: false,
+      isFeatured: false,
+    },
   });
 
   const title = product ? "Edit product" : "Create product";
