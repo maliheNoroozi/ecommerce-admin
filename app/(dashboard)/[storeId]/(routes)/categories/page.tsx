@@ -1,8 +1,6 @@
 import db from "@/lib/db";
 import { format } from "date-fns";
 import { Categories } from "@/components/categories/categories";
-import { CategoryColumn } from "@/components/categories/categories-table-columns";
-import { Category } from "@prisma/client";
 
 interface PageProps {
   params: {
@@ -11,7 +9,7 @@ interface PageProps {
 }
 
 export default async function Page({ params }: PageProps) {
-  const categories: Category[] = await db.category.findMany({
+  const categories = await db.category.findMany({
     where: {
       storeId: params.storeId,
     },
@@ -23,7 +21,7 @@ export default async function Page({ params }: PageProps) {
     },
   });
 
-  const formattedCategories: CategoryColumn[] = categories.map((item) => ({
+  const formattedCategories = categories.map((item) => ({
     id: item.id,
     name: item.name,
     billboardLabel: item.billboard.label,

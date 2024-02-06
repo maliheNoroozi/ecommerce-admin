@@ -1,6 +1,5 @@
 import db from "@/lib/db";
 import { ColorForm } from "@/components/colors/color-form";
-import { Color } from "@prisma/client";
 
 interface PageProps {
   params: {
@@ -9,7 +8,7 @@ interface PageProps {
 }
 
 export default async function Page({ params }: PageProps) {
-  const color: Color = await db.color.findUnique({
+  const color = await db.color.findUnique({
     where: {
       id: params.colorId,
     },

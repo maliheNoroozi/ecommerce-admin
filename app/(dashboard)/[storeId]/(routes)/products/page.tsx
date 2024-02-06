@@ -1,8 +1,6 @@
 import db from "@/lib/db";
 import { format } from "date-fns";
 import { Products } from "@/components/products/products";
-import { ProductColumn } from "@/components/products/products-table-columns";
-import { Category, Color, Product, Size } from "@prisma/client";
 import { currencyFormatter } from "@/lib/utils";
 
 interface PageProps {
@@ -12,11 +10,7 @@ interface PageProps {
 }
 
 export default async function Page({ params }: PageProps) {
-  const products: (Product & {
-    category: Category;
-    size: Size;
-    color: Color;
-  })[] = await db.product.findMany({
+  const products = await db.product.findMany({
     where: {
       storeId: params.storeId,
     },
@@ -30,7 +24,7 @@ export default async function Page({ params }: PageProps) {
     },
   });
 
-  const formattedProducts: ProductColumn[] = products.map((item) => ({
+  const formattedProducts = products.map((item) => ({
     id: item.id,
     name: item.name,
     isArchived: item.isArchived,

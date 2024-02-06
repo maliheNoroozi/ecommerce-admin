@@ -1,7 +1,6 @@
 import db from "@/lib/db";
 import { format } from "date-fns";
 import { Orders } from "@/components/orders/orders";
-import { OrderColumn } from "@/components/orders/orders-table-columns";
 import { currencyFormatter } from "@/lib/utils";
 
 interface PageProps {
@@ -27,7 +26,7 @@ export default async function Page({ params }: PageProps) {
     },
   });
 
-  const formattedOrders: OrderColumn[] = orders.map((item) => ({
+  const formattedOrders = orders.map((item) => ({
     id: item.id,
     phone: item.phone,
     address: item.address,

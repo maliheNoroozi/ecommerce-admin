@@ -1,6 +1,5 @@
 import db from "@/lib/db";
 import { BillboardForm } from "@/components/billboards/billboard-form";
-import { Billboard } from "@prisma/client";
 
 interface PageProps {
   params: {
@@ -9,7 +8,7 @@ interface PageProps {
 }
 
 export default async function Page({ params }: PageProps) {
-  const billboard: Billboard = await db.billboard.findUnique({
+  const billboard = await db.billboard.findUnique({
     where: {
       id: params.billboardId,
     },

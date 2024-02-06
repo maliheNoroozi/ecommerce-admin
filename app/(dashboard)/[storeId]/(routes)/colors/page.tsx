@@ -1,8 +1,6 @@
 import db from "@/lib/db";
 import { format } from "date-fns";
 import { Colors } from "@/components/colors/colors";
-import { ColorColumn } from "@/components/colors/colors-table-columns";
-import { Color } from "@prisma/client";
 
 interface PageProps {
   params: {
@@ -11,7 +9,7 @@ interface PageProps {
 }
 
 export default async function Page({ params }: PageProps) {
-  const colors: Color[] = await db.color.findMany({
+  const colors = await db.color.findMany({
     where: {
       storeId: params.storeId,
     },
@@ -20,7 +18,7 @@ export default async function Page({ params }: PageProps) {
     },
   });
 
-  const formattedColors: ColorColumn[] = colors.map((item) => ({
+  const formattedColors = colors.map((item) => ({
     id: item.id,
     name: item.name,
     value: item.value,
