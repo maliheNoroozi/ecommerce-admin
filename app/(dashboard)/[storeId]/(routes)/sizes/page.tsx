@@ -1,8 +1,6 @@
 import db from "@/lib/db";
 import { format } from "date-fns";
 import { Sizes } from "@/components/sizes/sizes";
-import { SizeColumn } from "@/components/sizes/sizes-table-columns";
-import { Size } from "@prisma/client";
 
 interface PageProps {
   params: {
@@ -11,7 +9,7 @@ interface PageProps {
 }
 
 export default async function Page({ params }: PageProps) {
-  const sizes: Size[] = await db.size.findMany({
+  const sizes = await db.size.findMany({
     where: {
       storeId: params.storeId,
     },
@@ -20,7 +18,7 @@ export default async function Page({ params }: PageProps) {
     },
   });
 
-  const formattedSizes: SizeColumn[] = sizes.map((item) => ({
+  const formattedSizes = sizes.map((item) => ({
     id: item.id,
     name: item.name,
     value: item.value,

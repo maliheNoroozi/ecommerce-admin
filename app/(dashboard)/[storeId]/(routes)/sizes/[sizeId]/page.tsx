@@ -1,6 +1,5 @@
 import db from "@/lib/db";
 import { SizeForm } from "@/components/sizes/size-form";
-import { Size } from "@prisma/client";
 
 interface PageProps {
   params: {
@@ -9,7 +8,7 @@ interface PageProps {
 }
 
 export default async function Page({ params }: PageProps) {
-  const size: Size = await db.size.findUnique({
+  const size = await db.size.findUnique({
     where: {
       id: params.sizeId,
     },
