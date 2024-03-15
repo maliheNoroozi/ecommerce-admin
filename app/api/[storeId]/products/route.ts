@@ -18,7 +18,7 @@ export const GET = async (req: NextRequest, { params }: RequestProps) => {
     const categoryId = searchParams.get("categoryId") || undefined;
     const sizeId = searchParams.get("sizeId") || undefined;
     const colorId = searchParams.get("colorId") || undefined;
-    const isFeatured = searchParams.get("isFeatured");
+    const isFeatured = searchParams.get("isFeatured") || undefined;
 
     const products = await db.product.findMany({
       where: {
