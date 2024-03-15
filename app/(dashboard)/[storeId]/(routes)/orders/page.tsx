@@ -35,7 +35,7 @@ export default async function Page({ params }: PageProps) {
       .join(", "),
     totalPrice: currencyFormatter().format(
       item.orderItems.reduce(
-        (total, orderItem) => (total + orderItem.product.price.toNumber(), 0),
+        (total, orderItem) => total + orderItem.product.price.toNumber(),
         0
       )
     ),
