@@ -9,6 +9,7 @@ import {
 } from "@clerk/nextjs";
 import { StoreSwitcher } from "@/components/store-switcher";
 import { Navbar } from "@/components/navbar";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 export async function Header() {
   const { userId } = auth();
@@ -24,7 +25,8 @@ export async function Header() {
     <header className="border-b p-4 flex items-center">
       <StoreSwitcher stores={stores} />
       <Navbar className="mx-6" />
-      <div className="ml-auto ">
+      <div className="flex items-center justify-center gap-4 ml-auto">
+        <ThemeToggle />
         <SignedIn>
           <UserButton />
         </SignedIn>
